@@ -1,20 +1,21 @@
 
 #include <stdio.h>
 
-#include "crypt.h"
-#define MAX_LEN 100
+#include "crypt.h"    // the header file where the crypt and
+                      // decrypt functions are defined
+
+#define MAX_LEN 100   // maximum length the message can be
 
 void print_message(char *messaggio);
 void get_message(char *messaggio);
-
-void calculate_key(int k, int *first_pointer, int *second_pointer);
+void calculate_key(int k, int *num_pointer, int *alpha_pointer);
 
 int main(){
 
    int choice = 0, num_key = 0, alfa_key = 0, k;
+   int *num_pointer = &num_key, *alpha_pointer = &alfa_key;
+      
    char messaggio[MAX_LEN];
-
-   int *first_pointer = &num_key, *second_pointer = &alfa_key;
 
       while (choice != 4) {
       
@@ -33,7 +34,7 @@ int main(){
          
          printf("Specifica la chaive di cifratura\n");
          scanf("%d", &k);
-         calculate_key(k, first_pointer, second_pointer);
+         calculate_key(k, num_pointer, alpha_pointer);
       
       }
 
@@ -69,7 +70,6 @@ int main(){
    }
 
 
-
    
    
    
@@ -80,26 +80,38 @@ int main(){
 
 void get_message(char *messaggio){
    
-   fflush(stdin);
-   //scanf("%s", messaggio);
-   //scanf("%[^\n]s", messaggio);
-   //fgets(messaggio, MAX_LEN, stdin);
-   //gets(messaggio);
+   fflush(stdin); // we need to flush stdin otherwise it 
+                  // will take the previous outputs as input
    scanf("%[^\n]%*c", messaggio);
+                  // we take the string as input with [^\n] to take
+                  // a string as input until a newline input is given
 
 }
 
-void calculate_key(int k, int *first_pointer, int *second_pointer){
+void calculate_key(int k, int *num_pointer, int *alpha_pointer){
 
-   *first_pointer = k % 10;
-   *second_pointer = k % 26;
+   *num_pointer = k % 10;   // as the digits we need to crypt/decrypte
+                            // are 10 we can 'shuffle' between them
+                            // simply calculating the module of any 
+                            // k divided by the number of digits (10)
+                            // from 0 to 9
+                            
+   *alpha_pointer = k % 26; // the same reasoning can be done with 
+                            // alphabetic key, we are shuffling
+                            // through 26 different letters so there
+                            // are just 26 different keys that are
+                            // periodically repetead in an interval
+                            // of 26.
 
 }
+
+
 void print_message(char *messaggio){
 
 int i = 0;
 
-while (messaggio[i] != '\0') {
+while (messaggio[i] != '\0') { // until the string hits its last
+                               // character the cycle is repeated 
 
    printf("%c", messaggio[i]);
    i++;
