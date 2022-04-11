@@ -22,8 +22,8 @@ void crypt(char *messaggio, int num_key, int alfa_key){
          sum = ascii_int + alfa_key; // sommiamo alfa key che è un 
                                      // valore fra 0 e 26
       
-         if( ( (ascii_int >= 65 && ascii_int <= 90 ) && sum > 90)
-         || (( ascii_int >= 97 && ascii_int <= 122 ) && sum > 122) ){
+         if( ( (ascii_int >= 65 && ascii_int <= 90 ) &&  sum > 90)
+         || (( ascii_int >= 97 && ascii_int <= 122 ) && sum > 122 ) )  {
          
          // se il risultato fra il valore ascii convertito e la chiave 
          // supera il range delle lettere togliamo 26, il numero dei 
@@ -55,7 +55,7 @@ void crypt(char *messaggio, int num_key, int alfa_key){
                                     // che il 'ciclo' è di 10 caratteri
 
          
-         if ( (ascii_int >= 48 && ascii_int <= 57) && sum > 57 ){
+         if ( (ascii_int >= 48 && ascii_int <= 57) && sum > 57){
 
          *(messaggio+i) = sum - 10; // se supera il range
                                     // ricomincio il ciclo dalla
@@ -109,7 +109,7 @@ void decrypt(char *messaggio, int num_key, int alfa_key){
       
       diff = ascii_int - num_key;
       
-      if( (ascii_int >= 48 && ascii_int <= 57 ) && diff < 48 ){
+      if( (ascii_int >= 48 && ascii_int <= 57 ) &&  diff < 48  ){
          
       *(messaggio+i) = diff + 10;
 
